@@ -1,42 +1,22 @@
-
-book_phones = {
-    # Напиши код тут
-    'андрей':"-79899899889",
-    'Михаил':'112',
-    'аня':'1',
-    'лия':'+09998765432',
-    'ЭДУАРД':'0'
-}
-print(len(book_phones))
-for a in book_phones.values():
-
-    print(a)
-action = input('Что хочешь сделать: 1 - показать, 2 - добавить, 3 - изменить, 4 - удалить контакт, 5 - Показать все имена в книге, 6 - Показать все номера в книге? -> ')
-
-if  action == '1':
-    name = input('имя ')
-    if name in book_phones:
-        print(book_phones [name])
-    else:
-        print('нет такого телефоного номера')
-elif action == '2' or action == '3':
-    name = input('имя ')
-    phone = input('телефон ')
-    book_phones [name] = phone
-    for key in book_phones:
-        print(f'{key}: {book_phones[key]}')
-elif action == '4':
-    name = input('имя ')
-    if name in book_phones:
-        del book_phones [name]
-    for key in book_phones:
-        print(f'{key}: {book_phones[key]}')
-elif action == "5":
-    for a in book_phones:
-        print(a)
-elif action == '6':
-    for b in book_phones.values():
-        print(b)
-
-else:
-    print('нет такого телефоного номера')
+from PIL import Image, ImageDraw,ImageFont
+print('генератор мемов запущен')
+top_text = input('ведите верхний текст ')
+bottom_text = input('ведите нижний текст ')
+print(top_text,bottom_text)
+print('список картинок')
+print('1.кот открыл банку')
+print('2.кот переел валерьянки')
+img_num = int(input('ведите номер картинки '))
+if img_num == 1:
+    img_file = 'cat1.jpg'
+elif img_num == 2:
+    img_file = "cat.jpg"
+img = Image.open(img_file)
+width,height = img.size
+draw = ImageDraw.Draw(img)
+font = ImageFont.truetype('arial.ttf',size=100)
+text = draw.textbbox((0,0),top_text,font)
+draw.text(((width - text[2]) / 2, 10), top_text,font = font,fill="white")
+text = draw.textbbox((0,0),bottom_text,font)
+draw.text(((width - text[2]) / 2, height - text[3] - 10), bottom_text,font = font,fill="white")
+img.save('mem.jpg')
